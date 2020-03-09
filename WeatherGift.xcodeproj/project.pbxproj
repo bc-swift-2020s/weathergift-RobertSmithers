@@ -9,21 +9,23 @@
 /* Begin PBXBuildFile section */
 		30D957B52416D02200CBE1DE /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D957B42416D02200CBE1DE /* AppDelegate.swift */; };
 		30D957B72416D02200CBE1DE /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D957B62416D02200CBE1DE /* SceneDelegate.swift */; };
-		30D957B92416D02200CBE1DE /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D957B82416D02200CBE1DE /* ViewController.swift */; };
+		30D957B92416D02200CBE1DE /* LocationListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D957B82416D02200CBE1DE /* LocationListViewController.swift */; };
 		30D957BC2416D02200CBE1DE /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30D957BA2416D02200CBE1DE /* Main.storyboard */; };
 		30D957BE2416D02300CBE1DE /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 30D957BD2416D02300CBE1DE /* Assets.xcassets */; };
 		30D957C12416D02300CBE1DE /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 30D957BF2416D02300CBE1DE /* LaunchScreen.storyboard */; };
+		30D957CB2416D26B00CBE1DE /* WeatherLocation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 30D957CA2416D26B00CBE1DE /* WeatherLocation.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		30D957B12416D02200CBE1DE /* WeatherGift.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = WeatherGift.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		30D957B42416D02200CBE1DE /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		30D957B62416D02200CBE1DE /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
-		30D957B82416D02200CBE1DE /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		30D957B82416D02200CBE1DE /* LocationListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationListViewController.swift; sourceTree = "<group>"; };
 		30D957BB2416D02200CBE1DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		30D957BD2416D02300CBE1DE /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		30D957C02416D02300CBE1DE /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		30D957C22416D02300CBE1DE /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		30D957CA2416D26B00CBE1DE /* WeatherLocation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeatherLocation.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -58,7 +60,8 @@
 			children = (
 				30D957B42416D02200CBE1DE /* AppDelegate.swift */,
 				30D957B62416D02200CBE1DE /* SceneDelegate.swift */,
-				30D957B82416D02200CBE1DE /* ViewController.swift */,
+				30D957B82416D02200CBE1DE /* LocationListViewController.swift */,
+				30D957CA2416D26B00CBE1DE /* WeatherLocation.swift */,
 				30D957BA2416D02200CBE1DE /* Main.storyboard */,
 				30D957BD2416D02300CBE1DE /* Assets.xcassets */,
 				30D957BF2416D02300CBE1DE /* LaunchScreen.storyboard */,
@@ -138,7 +141,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				30D957B92416D02200CBE1DE /* ViewController.swift in Sources */,
+				30D957B92416D02200CBE1DE /* LocationListViewController.swift in Sources */,
+				30D957CB2416D26B00CBE1DE /* WeatherLocation.swift in Sources */,
 				30D957B52416D02200CBE1DE /* AppDelegate.swift in Sources */,
 				30D957B72416D02200CBE1DE /* SceneDelegate.swift in Sources */,
 			);
