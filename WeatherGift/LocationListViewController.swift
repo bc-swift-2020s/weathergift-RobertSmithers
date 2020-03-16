@@ -17,25 +17,30 @@ class LocationListViewController: UIViewController {
     @IBOutlet weak var addBarButton: UIBarButtonItem!
     
     var weatherLocations: [WeatherLocation] = []
+    var selectedLocationIndex = 0
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        populateWeatherLocations()
+//        populateWeatherLocations()
         
         tableView.dataSource = self
         tableView.delegate = self
     }
-
-    func populateWeatherLocations() {
-        let weatherLocation = WeatherLocation(name: "Chestnut Hill, MA", latitude: 0, longitude: 0),
-            weatherLocation2 = WeatherLocation(name: "Lilongwe, Malawi", latitude: 0, longitude: 0),
-            weatherLocation3 = WeatherLocation(name: "Buenos Aires, Argentina", latitude: 0, longitude: 0)
-        
-        weatherLocations.append(weatherLocation)
-        weatherLocations.append(weatherLocation2)
-        weatherLocations.append(weatherLocation3)
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        selectedLocationIndex = tableView.indexPathForSelectedRow!.row
     }
+
+//    func populateWeatherLocations() {
+//        let weatherLocation = WeatherLocation(name: "Chestnut Hill, MA", latitude: 0, longitude: 0),
+//            weatherLocation2 = WeatherLocation(name: "Lilongwe, Malawi", latitude: 0, longitude: 0),
+//            weatherLocation3 = WeatherLocation(name: "Buenos Aires, Argentina", latitude: 0, longitude: 0)
+//
+//        weatherLocations.append(weatherLocation)
+//        weatherLocations.append(weatherLocation2)
+//        weatherLocations.append(weatherLocation3)
+//    }
 
     @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
         if tableView.isEditing {
