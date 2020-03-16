@@ -22,25 +22,23 @@ class LocationListViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        populateWeatherLocations()
-        
         tableView.dataSource = self
         tableView.delegate = self
     }
     
+    func saveLocations() {
+        let encoder = JSONEncoder()
+        if let encoded = try? encoder.encode(weatherLocations) {
+            UserDefaults.standard.set(encoded, forKey: "weatherLocations")
+        } else {
+            print("ERROR: Saving encoded didn't work")
+        }
+    }
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         selectedLocationIndex = tableView.indexPathForSelectedRow!.row
+        saveLocations()
     }
-
-//    func populateWeatherLocations() {
-//        let weatherLocation = WeatherLocation(name: "Chestnut Hill, MA", latitude: 0, longitude: 0),
-//            weatherLocation2 = WeatherLocation(name: "Lilongwe, Malawi", latitude: 0, longitude: 0),
-//            weatherLocation3 = WeatherLocation(name: "Buenos Aires, Argentina", latitude: 0, longitude: 0)
-//
-//        weatherLocations.append(weatherLocation)
-//        weatherLocations.append(weatherLocation2)
-//        weatherLocations.append(weatherLocation3)
-//    }
 
     @IBAction func editButtonPressed(_ sender: UIBarButtonItem) {
         if tableView.isEditing {
