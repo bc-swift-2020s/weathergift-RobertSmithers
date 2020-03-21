@@ -16,6 +16,7 @@ class LocationDetailViewController: UIViewController {
     @IBOutlet weak var summaryLabel: UILabel!
     @IBOutlet weak var imageView: UIImageView!
     
+    @IBOutlet weak var pageControl: UIPageControl!
     
     var weatherLocation: WeatherLocation!
     var locationIndex = 0
@@ -34,6 +35,10 @@ class LocationDetailViewController: UIViewController {
         placeLabel.text = weatherLocation.name
         temperatureLabel.text = "--°"
         summaryLabel.text = ""
+        
+        pageControl.numberOfPages = pageViewController.weatherLocations.count
+        pageControl.currentPage = locationIndex
+        weatherLocation.getData()
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
@@ -52,5 +57,15 @@ class LocationDetailViewController: UIViewController {
         pageViewController.weatherLocations = source.weatherLocations
         pageViewController.setViewControllers([pageViewController.createLocationDetailViewController(forPage: locationIndex)], direction: .forward, animated: false, completion: nil)
         updateUserInterface()
+    }
+    
+    @IBAction func pageControlTapped(_ sender: UIPageControl) {
+        let pageViewController = UIApplication.shared.windows.first!.rootViewController as! PageViewController
+       
+        var direction: UIPageViewController.NavigationDirection = .forward
+        if (sender.currentPage < locationIndex) {
+            direction = .reverse
+        }
+    pageViewController.setViewControllers([pageViewController.createLocationDetailViewController(forPage: sender.currentPage)], direction: direction, animated: true, completion: nil)
     }
 }
