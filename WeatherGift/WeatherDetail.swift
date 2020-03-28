@@ -17,6 +17,7 @@ class WeatherDetail: WeatherLocation {
     }
     struct Currently: Codable {
         var temperature: Double
+        var time: TimeInterval
     }
     struct Daily: Codable {
         var summary: String
@@ -24,6 +25,7 @@ class WeatherDetail: WeatherLocation {
     }
     
     var timezone = ""
+    var currentTime = 0.0
     var temperature = 0
     var summary = ""
     var dailyIcon = ""
@@ -53,6 +55,7 @@ class WeatherDetail: WeatherLocation {
             do {
                 let response = try JSONDecoder().decode(Result.self, from: data!)
                 self.timezone = response.timezone
+                self.currentTime = response.currently.time
                 self.temperature = Int(response.currently.temperature.rounded())
                 self.summary = response.daily.summary
                 self.dailyIcon = response.daily.icon
