@@ -8,10 +8,16 @@
 
 import UIKit
 
-private let dateFormatter: DateFormatter = {
+private let dayFormatter: DateFormatter = {
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "EEEE"
     return dateFormatter
+}()
+
+private let hourlyFormatter: DateFormatter = {
+    let hourlyFormatter = DateFormatter()
+    hourlyFormatter.dateFormat = "ha"
+    return hourlyFormatter
 }()
 
 struct DailyWeather: Codable {
@@ -22,12 +28,20 @@ struct DailyWeather: Codable {
     var dailyLow: Int
 }
 
+struct HourlyWeather: Codable {
+    var hour: String
+    var hourlyIcon: String
+    var hourlyTemperature: Int
+    var hourlyPrecipProbability: Int
+}
+
 class WeatherDetail: WeatherLocation {
     
-    private struct Result: Codable {
+    private struct Response: Codable {
         var timezone: String
         var currently: Currently
         var daily: Daily
+        var hourly: Hourly
     }
     private struct Currently: Codable {
         var temperature: Double
@@ -45,6 +59,15 @@ class WeatherDetail: WeatherLocation {
         var temperatureHigh: Double
         var temperatureLow: Double
     }
+    private struct Hourly: Codable {
+        var data: [HourlyData]
+    }
+    private struct HourlyData:Codable {
+        var time: TimeInterval
+        var icon: String
+        var precipProbability: Double
+        var temperature: Double
+    }
     
     var timezone = ""
     var currentTime = 0.0
@@ -52,6 +75,7 @@ class WeatherDetail: WeatherLocation {
     var summary = ""
     var dailyIcon = ""
     var dailyWeatherData: [DailyWeather] = []
+    var hourlyWeatherData: [HourlyWeather] = []
     
     func getData(completed: @escaping () -> () ) {
         let coordinates = "\(latitude),\(longitude)"
@@ -76,23 +100,34 @@ class WeatherDetail: WeatherLocation {
             
             // deal with the data
             do {
-                let response = try JSONDecoder().decode(Result.self, from: data!)
+                let response = try JSONDecoder().decode(Response.self, from: data!)
                 self.timezone = response.timezone
                 self.currentTime = response.currently.time
                 self.temperature = Int(response.currently.temperature.rounded())
                 self.summary = response.daily.summary
                 self.dailyIcon = response.daily.icon
+                
                 for index in 0..<response.daily.data.count {
                     let weekdayDate = Date(timeIntervalSince1970: response.daily.data[index].time)
-                    dateFormatter.timeZone = TimeZone(identifier: response.timezone)
-                    let dailyWeekday = dateFormatter.string(from: weekdayDate)
-                    print(dailyWeekday)
+                    dayFormatter.timeZone = TimeZone(identifier: response.timezone)
+                    let dailyWeekday = dayFormatter.string(from: weekdayDate)
                     let dailyIcon = response.daily.data[index].icon
                     let dailySummary = response.daily.data[index].summary
                     let dailyHigh = Int(response.daily.data[index].temperatureHigh.rounded())
                     let dailyLow = Int(response.daily.data[index].temperatureLow.rounded())
                     let dailyWeather = DailyWeather(dailyIcon: dailyIcon, dailyWeekday: dailyWeekday, dailySummary: dailySummary, dailyHigh: dailyHigh, dailyLow: dailyLow)
                     self.dailyWeatherData.append(dailyWeather)
+                }
+                
+                for index in 0..<response.hourly.data.count {
+                    let hourlyDate = Date(timeIntervalSince1970: response.hourly.data[index].time)
+                    hourlyFormatter.timeZone = TimeZone(identifier: response.timezone)
+                    let hour = dayFormatter.string(from: hourlyDate)
+                    let hourlyIcon = response.hourly.data[index].icon
+                    let precipProbability = Int((response.hourly.data[index].precipProbability * 100).rounded())
+                    let temperature = Int(response.hourly.data[index].temperature.rounded())
+                    let hourlyWeather = HourlyWeather(hour: hour, hourlyIcon: hourlyIcon, hourlyTemperature: temperature, hourlyPrecipProbability: precipProbability)
+                    self.hourlyWeatherData.append(hourlyWeather)
                 }
             } catch {
                 print("JSON ERROR: \(error.localizedDescription)")
