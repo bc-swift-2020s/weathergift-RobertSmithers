@@ -119,10 +119,11 @@ class WeatherDetail: WeatherLocation {
                     self.dailyWeatherData.append(dailyWeather)
                 }
                 
-                for index in 0..<response.hourly.data.count {
+                let lastHour = min(24, response.hourly.data.count)
+                for index in 0..<lastHour {
                     let hourlyDate = Date(timeIntervalSince1970: response.hourly.data[index].time)
                     hourlyFormatter.timeZone = TimeZone(identifier: response.timezone)
-                    let hour = dayFormatter.string(from: hourlyDate)
+                    let hour = hourlyFormatter.string(from: hourlyDate)
                     let hourlyIcon = response.hourly.data[index].icon
                     let precipProbability = Int((response.hourly.data[index].precipProbability * 100).rounded())
                     let temperature = Int(response.hourly.data[index].temperature.rounded())
