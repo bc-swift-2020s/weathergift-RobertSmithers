@@ -85,9 +85,11 @@ class LocationDetailViewController: UIViewController {
     }
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        let destination = segue.destination as! LocationListViewController
-        let pageViewController = UIApplication.shared.windows.first!.rootViewController as! PageViewController
-        destination.weatherLocations = pageViewController.weatherLocations
+        if segue.identifier == "ShowList" {
+            let destination = segue.destination as! LocationListViewController
+            let pageViewController = UIApplication.shared.windows.first!.rootViewController as! PageViewController
+            destination.weatherLocations = pageViewController.weatherLocations
+        }
     }
     
     // After user clicks on a location, unwinds back to this detail screen with its info
