@@ -9,7 +9,6 @@
 import UIKit
 
 private let dateFormatter: DateFormatter = {
-    print("I should only create a date formatter once!")
     let dateFormatter = DateFormatter()
     dateFormatter.dateFormat = "EEE, MMM d"
     return dateFormatter
@@ -33,6 +32,13 @@ class LocationDetailViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        clearUserInterface()
+        
         tableView.delegate = self
         tableView.dataSource = self
         
